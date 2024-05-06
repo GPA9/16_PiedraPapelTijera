@@ -1,25 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div>
-        <button onclick="piedraPapelTijera('piedra.png')">
-            <img id="icons" src="./imagenes/piedra.png" alt="iconoPiedra">
-        </button>
-        <button onclick="piedraPapelTijera('papel.png')">
-            <img id="icons" src="./imagenes/papel.png" alt="iconoPapel">
-        </button>
-        <button onclick="piedraPapelTijera('tijera.png')">
-            <img id="icons" src="/imagenes/tijera.png" alt="iconoTijera">
-        </button>
-    </div>
-    
-    <script src="/jquery-3.7.1.min.js"></script>
-    <script src="/main.js"></script>
+    <h1>Piedra, Papel, Tijera</h1>
+    <p>Selecciona tu jugada:</p>
+    <button id="buttonPiedra" onclick="seleccionarJugada('piedra')">
+        <img id="icons" src="./imagenes/piedra.png" alt="iconoPiedra">
+    </button>
+    <button id="buttonPapel" onclick="seleccionarJugada('papel')">
+        <img id="icons" src="./imagenes/papel.png" alt="iconoPapel">
+    </button>
+    <button id="buttonTijera" onclick="seleccionarJugada('tijera')">
+        <img id="icons" src="/imagenes/tijera.png" alt="iconoTijera">
+    </button>
+    <div id="resultado"></div>
+    <div id="jugadas"></div>
+
+    <script>
+        function seleccionarJugada(jugadaUsuario) {
+            const opciones = ['piedra', 'papel', 'tijera'];
+            const jugadaComputadora = opciones[Math.floor(Math.random() * opciones.length)];
+
+            const resultado = obtenerResultado(jugadaUsuario, jugadaComputadora);
+
+            document.getElementById('resultado').innerText = resultado;
+            document.getElementById('jugadas').innerHTML = `Tu jugada: ${jugadaUsuario}. Jugada de la computadora: ${jugadaComputadora}.`;
+        }
+
+        function obtenerResultado(jugadaUsuario, jugadaComputadora) {
+            if (jugadaUsuario === jugadaComputadora) {
+                return 'Empate';
+            } else if (
+                (jugadaUsuario === 'piedra' && jugadaComputadora === 'tijera') ||
+                (jugadaUsuario === 'papel' && jugadaComputadora === 'piedra') ||
+                (jugadaUsuario === 'tijera' && jugadaComputadora === 'papel')
+            ) {
+                return '¡Ganaste!';
+            } else {
+                return '¡Perdiste!';
+            }
+        }
+    </script>
 </body>
+<!-- <div>
+    <button id="buttonPiedra" onclick="piedraPapelTijera('piedra.png')">
+        <img id="icons" src="./imagenes/piedra.png" alt="iconoPiedra">
+    </button>
+    <button id="buttonPapel" onclick="piedraPapelTijera('papel.png')">
+        <img id="icons" src="./imagenes/papel.png" alt="iconoPapel">
+    </button>
+    <button id="buttonTijera" onclick="piedraPapelTijera('tijera.png')">
+        <img id="icons" src="/imagenes/tijera.png" alt="iconoTijera">
+    </button>
+</div>
+<script>
+    document.write("🏁Que comience la competicion!🏁")
+    document.write("<br>")
+
+    function piedraPapelTijera() {
+        var jugadas = ["piedra", "papel", "tijera"];
+        return jugadas[Math.floor(Math.random() * jugadas.length)];
+    }
+
+    function saberResultado(opcionUsuario, opcionComputadora) {
+        if (opcionUsuario === opcionComputadora) {
+            return document.write("Empate!");
+        } else if (
+            (opcionUsuario === "piedra" && opcionComputadora === "tijera") ||
+            (opcionUsuario === "papel" && opcionComputadora === "piedra") ||
+            (opcionUsuario === "tijera" && opcionComputadora === "papel")
+        ) {
+            return document.write("Has ganado!");
+        } else {
+            return document.write("Has perdido...😔");
+        }
+    }
+    // Función principal que ejecuta el juego
+    function jugar(opcionUsuario) {
+        var opcionComputadora = generarOpcionAleatoria();
+        var resultado = determinarResultado(opcionUsuario, opcionComputadora);
+
+        // Mostrar el resultado en la página
+        document.getElementById("resultado").innerHTML = "<p>Tu elección: " + opcionUsuario + "</p>" +
+            "<p>La elección de la computadora: " + opcionComputadora + "</p>" +
+            "<p>Resultado: " + resultado + "</p>";
+    }
+    
+</script> -->
+
 </html>
